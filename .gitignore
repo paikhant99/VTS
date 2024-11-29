@@ -1,0 +1,23 @@
+# Ignore everything specific to backend (Django)
+backend/__pycache__/
+backend/*.py[cod]
+backend/db.sqlite3
+backend/media/
+backend/staticfiles/
+backend/.env
+
+# Ignore everything specific to frontend (Flutter)
+frontend/.dart_tool/
+frontend/build/
+frontend/.pub-cache/
+frontend/.packages
+frontend/*.iml
+frontend/ios/Flutter/App.framework
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+
+# General exclusions
+*.log
+*.swp
+*.swo
+*.DS_Store
