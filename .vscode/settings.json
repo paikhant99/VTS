@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./backend/vaccination_tracking_app/views/patient_registration_"
+    ]
+}
