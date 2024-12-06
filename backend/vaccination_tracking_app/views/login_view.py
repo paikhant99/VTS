@@ -12,6 +12,7 @@ class LoginView(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         user = authenticate(username=username, password=password)
+        print(user)
 
         if user:
             refresh = RefreshToken.for_user(user)

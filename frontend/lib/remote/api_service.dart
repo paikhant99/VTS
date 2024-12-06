@@ -1,5 +1,5 @@
-import 'package:frontend/backend/entities/requests/login_request.dart';
-import 'package:frontend/backend/entities/requests/register_request.dart';
+import 'package:frontend/remote/entities/requests/login_request.dart';
+import 'package:frontend/remote/entities/requests/register_request.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/vts_app.dart';
 

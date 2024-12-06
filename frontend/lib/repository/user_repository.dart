@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:frontend/backend/api_service.dart';
-import 'package:frontend/backend/entities/requests/login_request.dart';
-import 'package:frontend/backend/entities/requests/register_request.dart';
-import 'package:frontend/backend/entities/responses/login_response.dart';
-import 'package:frontend/backend/entities/responses/register_response.dart';
-import 'package:frontend/backend/entities/result.dart';
+import 'package:frontend/remote/api_service.dart';
+import 'package:frontend/remote/entities/requests/login_request.dart';
+import 'package:frontend/remote/entities/requests/register_request.dart';
+import 'package:frontend/remote/entities/responses/login_response.dart';
+import 'package:frontend/remote/entities/responses/register_response.dart';
+import 'package:frontend/remote/entities/result.dart';
 import 'package:frontend/data/enums.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,7 +26,7 @@ class UserRepositoryImpl extends UserRepository{
     if (response.statusCode == HttpStatus.ok){
       return Result.success(LoginResponse.fromJson(jsonDecode(response.body)));
     }
-    return Result.failure(response.body);
+    return Result.failure(response.body.toString());
   }
 
   @override
@@ -35,6 +35,6 @@ class UserRepositoryImpl extends UserRepository{
     if (response.statusCode == HttpStatus.created){
       return Result.success(RegisterResponse.fromJson(jsonDecode(response.body)));
     }
-    return Result.failure(response.body);
+    return Result.failure(response.body.toString());
   }
 }

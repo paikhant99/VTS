@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:frontend/backend/entities/result.dart';
+import 'package:frontend/remote/entities/result.dart';
 import 'package:frontend/repository/user_repository.dart';
 
 class LoginViewmodel extends ChangeNotifier{

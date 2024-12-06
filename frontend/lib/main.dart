@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/backend/api_service.dart';
+import 'package:frontend/remote/api_service.dart';
 import 'package:frontend/repository/user_repository.dart';
 import 'package:frontend/views/login/login_viewmodel.dart';
 import 'package:frontend/views/register_patient/register_patient_viewmodel.dart';
