@@ -14,7 +14,7 @@ class LoginTestCase(TestCase):
             email="doctor1@example.com",
             password="securepassword",
             date_of_birth= datetime.date(2010, 1, 1),
-            gender= "M",
+            gender= "Male",
             address= "",
             role=CustomUser.DOCTOR
         )
@@ -24,7 +24,7 @@ class LoginTestCase(TestCase):
             email="patient1@example.com",
             password="securepassword",
             date_of_birth= datetime.date(2010, 1, 1),
-            gender= "M",
+            gender= "Male",
             address= "",
             role=CustomUser.PATIENT
         )

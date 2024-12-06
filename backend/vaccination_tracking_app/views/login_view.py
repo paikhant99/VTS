@@ -18,6 +18,11 @@ class LoginView(APIView):
             return Response({
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
+                'user_id': user.id,
+                'username': user.username,
+                'date_of_birth': user.date_of_birth,
+                'gender': user.gender,
+                'address': user.address,
                 'role': user.role,
             }, status=status.HTTP_200_OK)
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)

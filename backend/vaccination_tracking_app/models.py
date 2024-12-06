@@ -6,8 +6,8 @@ from django.db import models
 class CustomUser(AbstractUser):
 
     GENDER_CHOICES = [
-        ('M', 'Male'),
-        ('F', 'Female'),
+        ('Male', 'Male'),
+        ('Female', 'Female'),
     ]
 
     PATIENT = 'PATIENT'
@@ -20,7 +20,7 @@ class CustomUser(AbstractUser):
         (ADMIN, 'Admin'),
     ]
     date_of_birth = models.DateField()
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=PATIENT)
     address = models.CharField(max_length=250, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
