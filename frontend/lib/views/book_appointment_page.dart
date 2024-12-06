@@ -33,7 +33,7 @@ class _BookAppointmentPageState extends State<BookAppointmentPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: DropdownButton<String>(
-                hint: Text("Search"),
+                hint: const Text("Search"),
                 value: dropdownValue,
                 items: BookAppointmentPage.list
                     .map<DropdownMenuItem<String>>((String value) {
