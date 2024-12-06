@@ -14,7 +14,7 @@ class PatientRegistrationTestCase(TestCase):
             "email": "patient1@example.com",
             "password": "securepassword",
             "date_of_birth": datetime.date(2010, 1, 1),
-            "gender": "M",
+            "gender": "Male",
             "address": ""
         }
         self.invalid_data = {
@@ -22,7 +22,7 @@ class PatientRegistrationTestCase(TestCase):
             "email": "invalid",
             "password": "",
             "date_of_birth": datetime.date(2010, 1, 1),
-            "gender": "M",
+            "gender": "Male",
             "address": ""
         }
 

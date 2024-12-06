@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-pcga9xq)2*cm(%db)h8=yn=41u805kk44r49+l0a&aukt+g-lt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt",
     "vaccination_tracking_app"
 ]
 
