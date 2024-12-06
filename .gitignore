@@ -21,3 +21,4 @@ frontend/.flutter-plugins-dependencies
 *.swp
 *.swo
 *.DS_Store
+*.vscode
