@@ -1,27 +1,22 @@
 import 'package:flutter/foundation.dart';
-import 'package:frontend/remote/entities/result.dart';
+import 'package:frontend/remote/entities/responses/login_response.dart';
 import 'package:frontend/repository/user_repository.dart';
+import 'package:multiple_result/multiple_result.dart';
 
-class LoginViewmodel extends ChangeNotifier{
-
+class LoginViewmodel extends ChangeNotifier {
   bool loading = false;
-  Result? loginResult;
 
   final UserRepository userRepo;
 
-  LoginViewmodel({required this.userRepo});  
+  LoginViewmodel({required this.userRepo});
 
-  void login(String username, String password){
+  Future<Result<LoginResponse, Exception>> login(String username, String password) async{
     loading = true;
     notifyListeners();
-    userRepo.loginUser(username, password).then(
-      (result){
-        loginResult = result;
-        loading = false;
-        notifyListeners();
-      }
-    );
+    var result = await userRepo.loginUser(username, password);
+    loading = false;
+    notifyListeners();
+    return Future.value(result);
     
   }
-
 }

@@ -1,26 +1,27 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/data/enums.dart';
 import 'package:frontend/remote/entities/requests/login_request.dart';
 import 'package:frontend/remote/entities/requests/register_request.dart';
-import 'package:frontend/remote/entities/responses/login_response.dart';
-import 'package:frontend/remote/entities/result.dart';
 import 'package:frontend/repository/user_repository.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 
 import '../api_service_test.mocks.dart';
+import '../user_preferences_test.mocks.dart';
+
 
 void main() {
   group('UserRepository', () {
     late MockApiService mockApiService;
+    late MockUserPreferences mockUserPreferences;
     late UserRepository userRepository;
 
     setUp(() {
       mockApiService = MockApiService();
-      userRepository = UserRepositoryImpl(apiService: mockApiService);
+      mockUserPreferences = MockUserPreferences();
+      userRepository = UserRepositoryImpl.namedPrivate(apiService: mockApiService, userPreferences: mockUserPreferences);
     });
 
     test('login returns true when API succeeds', () async {
@@ -61,7 +62,7 @@ void main() {
       final result = await userRepository.loginUser("patient1", "wrongpassword");
 
       // Call the login method
-      expect(result.isFailure, isTrue);
+      expect(result.isError(), isTrue);
     });
 
     test('register Patient returns true when API succeeds', () async {
@@ -80,7 +81,7 @@ void main() {
       final result = await userRepository.registerPatient('patient1', 'u2734256@uel.ac.uk', 'securepassword', '27/4/2000', Gender.Male, "");
 
       // Assertions
-      expect(result.isSuccess, isTrue);
+      expect(result.isSuccess(), isTrue);
     });
 
     test('register Patient throws exception when API fails', () async {
@@ -96,7 +97,7 @@ void main() {
       final result = await userRepository.registerPatient('', '', 'securepassword', '27/4/2000', Gender.Male, "");
 
       // Call the login method
-      expect(result.isFailure, isTrue);
+      expect(result.isError(), isTrue);
     });
 
   });

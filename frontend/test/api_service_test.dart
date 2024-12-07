@@ -4,9 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/remote/api_service.dart';
 import 'package:frontend/remote/entities/requests/login_request.dart';
 import 'package:frontend/remote/entities/requests/register_request.dart';
+import 'package:frontend/remote/entities/requests/request_header.dart';
 import 'package:frontend/remote/entities/responses/login_response.dart';
 import 'package:frontend/remote/entities/responses/register_response.dart';
-import 'package:frontend/remote/entities/result.dart';
+import 'package:frontend/vts_app.dart';
+import 'package:multiple_result/multiple_result.dart';
 import 'package:mockito/annotations.dart';
 
 import 'package:http/http.dart' as http;
@@ -45,11 +47,14 @@ void main() {
       );
 
       // Call the method
-      final result = Result.success(LoginResponse.fromJson(jsonDecode((await mockApiService.login(LoginRequest(username: "patient1", password: "securepassword"))).body))) ;
+      final result = Success(LoginResponse.fromJson(jsonDecode((await mockApiService.login(LoginRequest(username: "patient1", password: "securepassword"))).body))) ;
 
       // Assertions
       expect(result.isSuccess, isTrue);
-      expect(result.data!.access, mockResponse['access']);
+      result.whenSuccess((data){
+        expect(data.access, mockResponse['access']);
+      });
+      
     });
 
     test('login returns failure when credentials are invalid', () async {
@@ -63,10 +68,10 @@ void main() {
       );
 
       // Call the method
-      final result = Result.failure((await apiService.login(LoginRequest(username: 'patient1', password: 'wrongpassword'))).body);
+      final result = Error((await apiService.login(LoginRequest(username: 'patient1', password: 'wrongpassword'))).body);
 
       // Assertions
-      expect(result.isFailure, isTrue);
+      expect(result.isError(), isTrue);
       expect(result.error, mockResponse.toString());
     });
 
@@ -88,13 +93,16 @@ void main() {
 
       // Assertions
       expect(result.isSuccess, isTrue);
-      expect(result.data!.access, mockResponse['access']);
+      result.whenSuccess((data){
+        expect(data.access, mockResponse['access']);
+      },);
+      
     });
 
-    test('register Patient returns failure when credentials are invalidated', () async {
+    test('register returns failure when credentials are invalidated', () async {
       // Mock the response
-      const mockResponse = '{"message":""}';
-      final mockHttpResponse = http.Response(mockResponse, 400);
+      const mockResponse = {"message":""};
+      final mockHttpResponse = http.Response(jsonEncode(mockResponse), 400);
 
       // Mock login method
       when(mockApiService.register(RegisterRequest(username: "", email: "", password: "securepassword", dateOfBirth: "27/4/2000", gender: "Male", address: ""))).thenAnswer(
@@ -102,11 +110,35 @@ void main() {
       );
 
       // Call the method
-      final result = Result.failure((await mockApiService.register(RegisterRequest(username: "", email: "", password: "securepassword", dateOfBirth: "27/4/2000", gender: "Male", address: ""))).body);
+      final result = Error((await mockApiService.register(RegisterRequest(username: "", email: "", password: "securepassword", dateOfBirth: "27/4/2000", gender: "Male", address: ""))).body);
 
       // Assertions
-      expect(result.isFailure, isTrue);
+      expect(result.isError(), isTrue);
       expect(result.error, mockResponse);
     });
+
+    test('get_available_time_slots success when authenticated', () async{
+
+      const mockResponse = [
+        {
+          'doctor_id' : 'd123456',
+          'available_datetime' : '27/2/2000 03:00:00',
+          'is_available' : true
+        },
+      ];
+
+      final mockHttpResponse = http.Response(jsonEncode(mockResponse), 200);
+
+      var requestHeader = RequestHeader(acceptType: VTSApp.APP_JSON, contentType: VTSApp.APP_JSON, authorization: "{Bearer : 23456}");
+      when(mockApiService.getAvailableTimeSlots(requestHeader)).thenAnswer(
+        (_) async => mockHttpResponse,
+      );
+
+      final result = Success((await mockApiService.getAvailableTimeSlots(requestHeader)).body);
+
+      expect(result.isSuccess(), isTrue);
+      result.whenSuccess((success) => expect(success[0].length, mockResponse.length));
+    });
+
   });
 }
