@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, AvailableTimeSlot
 
 class PatientRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -20,3 +20,8 @@ class PatientRegistrationSerializer(serializers.ModelSerializer):
         )
         return user
 
+class AvailableTimeSlotsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AvailableTimeSlot
+        fields = '__all__'
