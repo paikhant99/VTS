@@ -7,8 +7,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:frontend/views/book_appointment_page.dart';
 
 class ViewAppointmentsPage extends StatefulWidget {
-  final String token;
-  const ViewAppointmentsPage({super.key, required this.token});
+  const ViewAppointmentsPage({super.key});
 
   @override
   State<ViewAppointmentsPage> createState() => _ViewAppointmentsPageState();
@@ -22,7 +21,7 @@ class _ViewAppointmentsPageState extends State<ViewAppointmentsPage> {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
     Provider.of<ViewAppointmentsViewmodel>(context, listen: false)
-        .getAvailableTimeSlots(widget.token);
+        .getAvailableTimeSlots();
   }
 
   @override

@@ -35,7 +35,7 @@ class UserPreferences{
     return null;
   }
 
-  void deleteLoginInfo()async{
+  Future<SharedPreferences?> deleteLoginInfo()async{
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.remove(_userId);
@@ -44,5 +44,6 @@ class UserPreferences{
     await prefs.remove(_gender);
     await prefs.remove(_isLoggedIn);
     await prefs.remove(_token);
+    return prefs;
   }
 }

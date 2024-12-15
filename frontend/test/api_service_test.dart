@@ -4,10 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/remote/api_service.dart';
 import 'package:frontend/remote/entities/requests/login_request.dart';
 import 'package:frontend/remote/entities/requests/register_request.dart';
-import 'package:frontend/remote/entities/requests/request_header.dart';
 import 'package:frontend/remote/entities/responses/login_response.dart';
 import 'package:frontend/remote/entities/responses/register_response.dart';
-import 'package:frontend/vts_app.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:mockito/annotations.dart';
 
@@ -129,12 +127,11 @@ void main() {
 
       final mockHttpResponse = http.Response(jsonEncode(mockResponse), 200);
 
-      var requestHeader = RequestHeader(acceptType: VTSApp.APP_JSON, contentType: VTSApp.APP_JSON, authorization: "{Bearer : 23456}");
-      when(mockApiService.getAvailableTimeSlots(requestHeader)).thenAnswer(
+      when(mockApiService.getAvailableTimeSlots('23456')).thenAnswer(
         (_) async => mockHttpResponse,
       );
 
-      final result = Success((await mockApiService.getAvailableTimeSlots(requestHeader)).body);
+      final result = Success((await mockApiService.getAvailableTimeSlots("23456")).body);
 
       expect(result.isSuccess(), isTrue);
       result.whenSuccess((success) => expect(success[0].length, mockResponse.length));

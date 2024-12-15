@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/views/home/home_viewmodel.dart';
+import 'package:frontend/views/user_data_provider.dart';
+import 'package:frontend/views/splash/splash_screen.dart';
 import 'package:frontend/views/view_appointments/view_appointments_page.dart';
 import 'package:frontend/views/view_vaccination_history.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  late List<Widget> pages;
+  late List<Widget> pages = [];
 
   void onSelectPage(int index) {
     setState(() {
@@ -24,14 +25,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<HomeViewmodel>(context, listen: false).getLoggedInStatus();
+    WidgetsFlutterBinding.ensureInitialized();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeViewmodel>(builder: (context, homeViewmodel, child) {
+    return Consumer<UserDataProvider>(builder: (context, homeViewmodel, child) {
+
+      if (!homeViewmodel.isLoggedIn){
+        Future.delayed(const Duration(seconds: 5), () {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SplashScreen()));
+        });
+      }
+
       pages = <Widget>[
-        ViewAppointmentsPage(token: homeViewmodel.token),
+        const ViewAppointmentsPage(),
         const ViewVaccinationHistory(),
       ];
       return Scaffold(

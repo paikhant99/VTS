@@ -14,9 +14,8 @@ import 'package:http/http.dart' as http;
 abstract class UserRepository{
   Future<Result<LoginResponse, Exception>> loginUser(String username, String password);
   Future<Result<RegisterResponse, Exception>> registerPatient(String username, String email, String password, String dateOfBirth, Gender gender, String? address);
-  Future<bool> checkLoggedInStatus();
-  Future<Map<String,dynamic>> getLoginInfo();
-
+  Future<Map<String,dynamic>?> getLoginInfo();
+  Future<bool> logOut();
 }
 
 class UserRepositoryImpl extends UserRepository{
@@ -46,14 +45,13 @@ class UserRepositoryImpl extends UserRepository{
   }
 
   @override
-  Future<bool> checkLoggedInStatus() async {
-    final loginInfo = await _userPreferences.getLoginInfo();
-    return loginInfo != null;
+  Future<Map<String,dynamic>?> getLoginInfo() async{
+    return await _userPreferences.getLoginInfo();
   }
 
   @override
-  Future<Map<String,dynamic>> getLoginInfo() async{
-    return (await _userPreferences.getLoginInfo())!;
+  Future<bool> logOut() async{
+    return (await _userPreferences.deleteLoginInfo()) == null;
   }
 
 }

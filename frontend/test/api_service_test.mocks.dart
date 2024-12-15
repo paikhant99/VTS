@@ -8,7 +8,6 @@ import 'dart:async' as _i4;
 import 'package:frontend/remote/api_service.dart' as _i3;
 import 'package:frontend/remote/entities/requests/login_request.dart' as _i5;
 import 'package:frontend/remote/entities/requests/register_request.dart' as _i6;
-import 'package:frontend/remote/entities/requests/request_header.dart' as _i7;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -76,18 +75,17 @@ class MockApiService extends _i1.Mock implements _i3.ApiService {
       ) as _i4.Future<_i2.Response>);
 
   @override
-  _i4.Future<_i2.Response> getAvailableTimeSlots(
-          _i7.RequestHeader? requestHeader) =>
+  _i4.Future<_i2.Response> getAvailableTimeSlots(String? token) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAvailableTimeSlots,
-          [requestHeader],
+          [token],
         ),
         returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #getAvailableTimeSlots,
-            [requestHeader],
+            [token],
           ),
         )),
       ) as _i4.Future<_i2.Response>);

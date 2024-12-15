@@ -3,11 +3,10 @@ import 'package:frontend/local/user_preferences.dart';
 import 'package:frontend/remote/api_service.dart';
 import 'package:frontend/repository/appointment_repository.dart';
 import 'package:frontend/repository/user_repository.dart';
-import 'package:frontend/views/home/home_viewmodel.dart';
+import 'package:frontend/views/user_data_provider.dart';
 import 'package:frontend/views/login/login_viewmodel.dart';
 import 'package:frontend/views/register_patient/register_patient_viewmodel.dart';
 import 'package:frontend/views/splash/splash_screen.dart';
-import 'package:frontend/views/splash/splash_viewmodel.dart';
 import 'package:frontend/views/view_appointments/view_appointments_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -37,11 +36,9 @@ class MyApp extends StatelessWidget {
             apiService: apiService,
           ),
         ),
-        ChangeNotifierProxyProvider(
-            create: (context) => SplashViewmodel.namedPrivate(
-                userRepo: Provider.of<UserRepository>(context, listen: false)),
-            update: (_, userRepo, splashScreenViewmodel) =>
-                splashScreenViewmodel!),
+        ChangeNotifierProvider(
+            create: (context) => UserDataProvider.namedPrivate(
+                userRepo: Provider.of<UserRepository>(context, listen: false))),
         ChangeNotifierProxyProvider(
             create: (context) => RegisterPatientViewmodel.namedPrivate(
                 userRepo: Provider.of<UserRepository>(context, listen: false)),
@@ -49,14 +46,13 @@ class MyApp extends StatelessWidget {
                 registerPatientViewModel!),
         ChangeNotifierProxyProvider(
             create: (context) => LoginViewmodel(
+              userDataProvider: Provider.of<UserDataProvider>(context, listen: false),
                 userRepo: Provider.of<UserRepository>(context, listen: false)),
             update: (_, userRepo, loginViewModel) => loginViewModel!),
         ChangeNotifierProxyProvider(
-            create: (context) => HomeViewmodel.namedPrivate(
-                userRepo: Provider.of<UserRepository>(context, listen: false)),
-            update: (_, userRepo, homeViewmodel) => homeViewmodel!),
-        ChangeNotifierProxyProvider(
             create: (context) => ViewAppointmentsViewmodel.namedPrivate(
+                userDataProvider:
+                    Provider.of<UserDataProvider>(context, listen: false),
                 appointmentRepo:
                     Provider.of<AppointmentRepository>(context, listen: false)),
             update: (_, userRepo, viewAppointmentsViewmodel) =>

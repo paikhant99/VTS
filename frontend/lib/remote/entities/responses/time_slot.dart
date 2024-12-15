@@ -9,7 +9,8 @@ part 'time_slot.g.dart';
 class TimeSlot with _$TimeSlot{
 
   const factory TimeSlot({
-    @JsonKey(name: 'doctor_id') required String doctorId,
+    @JsonKey(name: 'id') required int timeSlotId,
+    @JsonKey(name: 'doctor') required int doctorId,
     @JsonKey(name: 'available_datetime') required String availableDateTime,
     @JsonKey(name: 'is_available') required bool isAvailable,
   }) = _TimeSlot;
