@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/views/home_screen.dart';
+import 'package:frontend/remote/api_service.dart';
+import 'package:frontend/repository/user_repository.dart';
+import 'package:frontend/views/login/login_viewmodel.dart';
+import 'package:frontend/views/register_patient/register_patient_viewmodel.dart';
+import 'package:provider/provider.dart';
+import 'package:frontend/views/login/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,28 +16,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        Provider<ApiService>(create: (_) => ApiService()),
+        ProxyProvider<ApiService, UserRepository>(
+          update: (_, apiService, __) =>
+              UserRepositoryImpl(apiService: apiService),
+        ),
+        ChangeNotifierProxyProvider(
+            create: (context) => RegisterPatientViewmodel(
+                userRepo: Provider.of<UserRepository>(context, listen: false)),
+            update: (_, userRepo, registerPatientViewModel) =>
+                registerPatientViewModel!),
+        ChangeNotifierProxyProvider(
+            create: (context) => LoginViewmodel(
+                userRepo: Provider.of<UserRepository>(context, listen: false)),
+            update: (_, userRepo, loginViewModel) => loginViewModel!),
+      ],
+      child: MaterialApp(
+        title: 'VTS App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const LoginScreen(),
       ),
-      home: HomeScreen(contentDesc: 'This is a kickstart of Vaccination Tracking System'),
     );
   }
 }
