@@ -14,6 +14,7 @@ class PatientRegistrationView(APIView):
 
     def post(self, request):
         serializer = PatientRegistrationSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             user = serializer.save()
             refresh = RefreshToken.for_user(user)

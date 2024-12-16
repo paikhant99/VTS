@@ -28,7 +28,7 @@ class AvailableTimeSlotsTestCase(TestCase):
         
         
         
-        self.timeslot_list =[];
+        self.timeslot_list =[]
 
         self.timeslot = AvailableTimeSlot.objects.create(
             available_datetime = datetime.now(),
