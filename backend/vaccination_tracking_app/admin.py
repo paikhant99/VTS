@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, AvailableTimeSlot
+from .models import CustomUser, AvailableTimeSlot, Disease, Vaccine, Vaccination, Appointment
 
 # Register your models here.
 
@@ -18,3 +18,7 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(AvailableTimeSlot)
+admin.site.register(Disease)
+admin.site.register(Vaccine)
+admin.site.register(Vaccination)
+admin.site.register(Appointment)
