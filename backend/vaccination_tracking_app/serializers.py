@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, AvailableTimeSlot, Disease, Appointment
+from .models import CustomUser, AvailableTimeSlot, Disease, Appointment, Vaccination
 
 class PatientRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -56,12 +56,14 @@ class AppointmentsSerializer(serializers.ModelSerializer):
         model = Appointment
         fields = ['id', 'consultation', 'patient', 'disease']
 
-        def create(self, validated_data):
-            # Create the appointment
-            appointment = super().create(validated_data)
-
-            # Update the doctor's availability
-            consultation = appointment.consultation
-            consultation.is_available = False  # Set the flag to False
-            consultation.save()
-            return appointment
+    def create(self, validated_data):
+        appointment = super().create(validated_data)
+        consultation = appointment.consultation
+        consultation.is_available = False  # Set the flag to False
+        consultation.save()
+        return appointment
+            
+class VaccinationsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vaccination
+        
