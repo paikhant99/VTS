@@ -23,7 +23,7 @@ mixin _$TimeSlot {
   @JsonKey(name: 'id')
   int get timeSlotId => throw _privateConstructorUsedError;
   @JsonKey(name: 'doctor')
-  int get doctorId => throw _privateConstructorUsedError;
+  Doctor get doctor => throw _privateConstructorUsedError;
   @JsonKey(name: 'available_datetime')
   String get availableDateTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_available')
@@ -42,9 +42,11 @@ abstract class $TimeSlotCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'id') int timeSlotId,
-      @JsonKey(name: 'doctor') int doctorId,
+      @JsonKey(name: 'doctor') Doctor doctor,
       @JsonKey(name: 'available_datetime') String availableDateTime,
       @JsonKey(name: 'is_available') bool isAvailable});
+
+  $DoctorCopyWith<$Res> get doctor;
 }
 
 /// @nodoc
@@ -61,7 +63,7 @@ class _$TimeSlotCopyWithImpl<$Res, $Val extends TimeSlot>
   @override
   $Res call({
     Object? timeSlotId = null,
-    Object? doctorId = null,
+    Object? doctor = null,
     Object? availableDateTime = null,
     Object? isAvailable = null,
   }) {
@@ -70,10 +72,10 @@ class _$TimeSlotCopyWithImpl<$Res, $Val extends TimeSlot>
           ? _value.timeSlotId
           : timeSlotId // ignore: cast_nullable_to_non_nullable
               as int,
-      doctorId: null == doctorId
-          ? _value.doctorId
-          : doctorId // ignore: cast_nullable_to_non_nullable
-              as int,
+      doctor: null == doctor
+          ? _value.doctor
+          : doctor // ignore: cast_nullable_to_non_nullable
+              as Doctor,
       availableDateTime: null == availableDateTime
           ? _value.availableDateTime
           : availableDateTime // ignore: cast_nullable_to_non_nullable
@@ -83,6 +85,14 @@ class _$TimeSlotCopyWithImpl<$Res, $Val extends TimeSlot>
           : isAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DoctorCopyWith<$Res> get doctor {
+    return $DoctorCopyWith<$Res>(_value.doctor, (value) {
+      return _then(_value.copyWith(doctor: value) as $Val);
+    });
   }
 }
 
@@ -96,9 +106,12 @@ abstract class _$$TimeSlotImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'id') int timeSlotId,
-      @JsonKey(name: 'doctor') int doctorId,
+      @JsonKey(name: 'doctor') Doctor doctor,
       @JsonKey(name: 'available_datetime') String availableDateTime,
       @JsonKey(name: 'is_available') bool isAvailable});
+
+  @override
+  $DoctorCopyWith<$Res> get doctor;
 }
 
 /// @nodoc
@@ -113,7 +126,7 @@ class __$$TimeSlotImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? timeSlotId = null,
-    Object? doctorId = null,
+    Object? doctor = null,
     Object? availableDateTime = null,
     Object? isAvailable = null,
   }) {
@@ -122,10 +135,10 @@ class __$$TimeSlotImplCopyWithImpl<$Res>
           ? _value.timeSlotId
           : timeSlotId // ignore: cast_nullable_to_non_nullable
               as int,
-      doctorId: null == doctorId
-          ? _value.doctorId
-          : doctorId // ignore: cast_nullable_to_non_nullable
-              as int,
+      doctor: null == doctor
+          ? _value.doctor
+          : doctor // ignore: cast_nullable_to_non_nullable
+              as Doctor,
       availableDateTime: null == availableDateTime
           ? _value.availableDateTime
           : availableDateTime // ignore: cast_nullable_to_non_nullable
@@ -141,9 +154,9 @@ class __$$TimeSlotImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TimeSlotImpl with DiagnosticableTreeMixin implements _TimeSlot {
-  const _$TimeSlotImpl(
+  _$TimeSlotImpl(
       {@JsonKey(name: 'id') required this.timeSlotId,
-      @JsonKey(name: 'doctor') required this.doctorId,
+      @JsonKey(name: 'doctor') required this.doctor,
       @JsonKey(name: 'available_datetime') required this.availableDateTime,
       @JsonKey(name: 'is_available') required this.isAvailable});
 
@@ -155,7 +168,7 @@ class _$TimeSlotImpl with DiagnosticableTreeMixin implements _TimeSlot {
   final int timeSlotId;
   @override
   @JsonKey(name: 'doctor')
-  final int doctorId;
+  final Doctor doctor;
   @override
   @JsonKey(name: 'available_datetime')
   final String availableDateTime;
@@ -165,7 +178,7 @@ class _$TimeSlotImpl with DiagnosticableTreeMixin implements _TimeSlot {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TimeSlot(timeSlotId: $timeSlotId, doctorId: $doctorId, availableDateTime: $availableDateTime, isAvailable: $isAvailable)';
+    return 'TimeSlot(timeSlotId: $timeSlotId, doctor: $doctor, availableDateTime: $availableDateTime, isAvailable: $isAvailable)';
   }
 
   @override
@@ -174,7 +187,7 @@ class _$TimeSlotImpl with DiagnosticableTreeMixin implements _TimeSlot {
     properties
       ..add(DiagnosticsProperty('type', 'TimeSlot'))
       ..add(DiagnosticsProperty('timeSlotId', timeSlotId))
-      ..add(DiagnosticsProperty('doctorId', doctorId))
+      ..add(DiagnosticsProperty('doctor', doctor))
       ..add(DiagnosticsProperty('availableDateTime', availableDateTime))
       ..add(DiagnosticsProperty('isAvailable', isAvailable));
   }
@@ -186,8 +199,7 @@ class _$TimeSlotImpl with DiagnosticableTreeMixin implements _TimeSlot {
             other is _$TimeSlotImpl &&
             (identical(other.timeSlotId, timeSlotId) ||
                 other.timeSlotId == timeSlotId) &&
-            (identical(other.doctorId, doctorId) ||
-                other.doctorId == doctorId) &&
+            (identical(other.doctor, doctor) || other.doctor == doctor) &&
             (identical(other.availableDateTime, availableDateTime) ||
                 other.availableDateTime == availableDateTime) &&
             (identical(other.isAvailable, isAvailable) ||
@@ -197,7 +209,7 @@ class _$TimeSlotImpl with DiagnosticableTreeMixin implements _TimeSlot {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, timeSlotId, doctorId, availableDateTime, isAvailable);
+      runtimeType, timeSlotId, doctor, availableDateTime, isAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -214,9 +226,9 @@ class _$TimeSlotImpl with DiagnosticableTreeMixin implements _TimeSlot {
 }
 
 abstract class _TimeSlot implements TimeSlot {
-  const factory _TimeSlot(
+  factory _TimeSlot(
           {@JsonKey(name: 'id') required final int timeSlotId,
-          @JsonKey(name: 'doctor') required final int doctorId,
+          @JsonKey(name: 'doctor') required final Doctor doctor,
           @JsonKey(name: 'available_datetime')
           required final String availableDateTime,
           @JsonKey(name: 'is_available') required final bool isAvailable}) =
@@ -230,7 +242,7 @@ abstract class _TimeSlot implements TimeSlot {
   int get timeSlotId;
   @override
   @JsonKey(name: 'doctor')
-  int get doctorId;
+  Doctor get doctor;
   @override
   @JsonKey(name: 'available_datetime')
   String get availableDateTime;

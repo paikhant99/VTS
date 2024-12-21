@@ -5,7 +5,6 @@ import '../../remote/entities/responses/time_slot.dart';
 
 class TimeSlotDataSource extends CalendarDataSource {
   TimeSlotDataSource(List<TimeSlot> timeSlots) {
-    print("Time Slots $timeSlots");
     appointments = timeSlots
         .map(
           (slot) => Appointment(

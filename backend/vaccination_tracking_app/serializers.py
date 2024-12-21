@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, AvailableTimeSlot, Disease, Appointment, Vaccination
+from .models import CustomUser, AvailableTimeSlot, Disease, Appointment, Vaccination, Vaccine
 
 class PatientRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -47,6 +47,13 @@ class BookAppointmentSerializer(serializers.ModelSerializer):
         model = Appointment
         fields = ['consultation', 'patient', 'disease']
 
+    def create(self, validated_data):
+        appointment = super().create(validated_data)
+        consultation = appointment.consultation
+        consultation.is_available = False  # Set the flag to False
+        consultation.save()
+        return appointment
+
 class AppointmentsSerializer(serializers.ModelSerializer):
     consultation = AvailableTimeSlotsSerializer(read_only=True)
     patient = PatientSerializer(read_only=True)
@@ -55,15 +62,17 @@ class AppointmentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = ['id', 'consultation', 'patient', 'disease']
-
-    def create(self, validated_data):
-        appointment = super().create(validated_data)
-        consultation = appointment.consultation
-        consultation.is_available = False  # Set the flag to False
-        consultation.save()
-        return appointment
+    
+class VaccineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vaccine
+        fields = '__all__'
             
 class VaccinationsSerializer(serializers.ModelSerializer):
+    vaccine = VaccineSerializer(read_only=True)
+    appointment = AppointmentsSerializer(read_only=True)
+
     class Meta:
         model = Vaccination
+        fields = ['id', 'dosing_time', 'next_due_date', 'remarks', 'vaccine', 'appointment']
         

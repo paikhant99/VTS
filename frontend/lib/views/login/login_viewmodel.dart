@@ -10,14 +10,18 @@ class LoginViewmodel extends ChangeNotifier {
   final UserRepository _userRepo;
   final UserDataProvider _userDataProvider;
 
-  LoginViewmodel({required UserDataProvider userDataProvider,required UserRepository userRepo}) : _userDataProvider = userDataProvider, _userRepo = userRepo; 
+  LoginViewmodel(
+      {required UserDataProvider userDataProvider,
+      required UserRepository userRepo})
+      : _userDataProvider = userDataProvider,
+        _userRepo = userRepo;
 
-  Future<Result<LoginResponse, Exception>> login(String username, String password) async{
+  Future<Result<LoginResponse, Exception>> login(
+      String username, String password) async {
     loading = true;
     notifyListeners();
     var result = await _userRepo.loginUser(username, password);
     result.when((response) {
-      print(response);
       _userDataProvider.checkLoggedInStatus();
     }, (error) => null);
     loading = false;

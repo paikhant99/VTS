@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/views/user_data_provider.dart';
 import 'package:frontend/views/splash/splash_screen.dart';
 import 'package:frontend/views/view_appointments/view_appointments_page.dart';
-import 'package:frontend/views/view_vaccination_history.dart';
+import 'package:frontend/views/view_vaccination/view_vaccination_history.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,10 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<UserDataProvider>(builder: (context, homeViewmodel, child) {
-
-      if (!homeViewmodel.isLoggedIn){
+      if (!homeViewmodel.isLoggedIn) {
         Future.delayed(const Duration(seconds: 5), () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SplashScreen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const SplashScreen()));
         });
       }
 

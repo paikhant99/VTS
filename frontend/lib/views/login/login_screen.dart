@@ -61,13 +61,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const HomeScreen()));
+                                builder: (context) => const HomeScreen()));
                       }, (error) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(error.toString())));
                       });
-                    }, 
+                    },
                     child: loginViewModel.loading
                         ? const CircularProgressIndicator()
                         : const Text(

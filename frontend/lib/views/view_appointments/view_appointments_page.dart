@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:frontend/remote/entities/responses/time_slot.dart';
 import 'package:frontend/views/view_appointments/data_sources.dart';
 import 'package:frontend/views/view_appointments/view_appointments_viewmodel.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:frontend/views/book_appointment_page.dart';
+import 'package:frontend/views/book_appointment/book_appointment_page.dart';
+import 'package:frontend/remote/entities/responses/appointment.dart' as entity;
 
 class ViewAppointmentsPage extends StatefulWidget {
   const ViewAppointmentsPage({super.key});
@@ -22,6 +24,8 @@ class _ViewAppointmentsPageState extends State<ViewAppointmentsPage> {
     WidgetsFlutterBinding.ensureInitialized();
     Provider.of<ViewAppointmentsViewmodel>(context, listen: false)
         .getAvailableTimeSlots();
+    Provider.of<ViewAppointmentsViewmodel>(context, listen: false)
+        .getAllAppointments();
   }
 
   @override
@@ -32,14 +36,15 @@ class _ViewAppointmentsPageState extends State<ViewAppointmentsPage> {
         children: [
           SfCalendar(
               view: CalendarView.month,
-              dataSource:
-                  TimeSlotDataSource(viewAppointmentsViewmodel.timeSlots),
+              dataSource: TimeSlotDataSource(
+                  viewAppointmentsViewmodel.consultationSlots),
               onTap: (calendarTapDetails) {
                 showModalBottomSheet(
                     showDragHandle: true,
                     context: context,
                     builder: (context) {
-                      return const BookAppointmentPage();
+                      return BookAppointmentPage(
+                          selectedDate: calendarTapDetails.date!);
                     });
               }),
           const Padding(
@@ -49,9 +54,11 @@ class _ViewAppointmentsPageState extends State<ViewAppointmentsPage> {
           Expanded(
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: 3,
+                itemCount: viewAppointmentsViewmodel.appointments.length,
                 itemBuilder: (context, index) {
-                  return const AppointmentItemView();
+                  return AppointmentItemView(
+                    appointment: viewAppointmentsViewmodel.appointments[index],
+                  );
                 }),
           ),
         ],
@@ -61,23 +68,31 @@ class _ViewAppointmentsPageState extends State<ViewAppointmentsPage> {
 }
 
 class AppointmentItemView extends StatelessWidget {
-  const AppointmentItemView({super.key});
+  final entity.Appointment appointment;
+
+  const AppointmentItemView({super.key, required this.appointment});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Take Data Object as a parameter in constructor
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    var datetime = DateTime.parse(appointment.consultation.availableDateTime);
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Card(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Covid 19'), Text('Feb 29, 2024')]),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text(appointment.disease.diseaseName),
+              Text(DateFormat('MMM d, yyyy').format(datetime))
+            ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('Doctor Name - Dr. Alpha'), Text('At 2:00 pm')],
+              children: [
+                Text(
+                    'Doctor Name - ${appointment.consultation.doctor.doctorName}'),
+                Text('At ${DateFormat('h:mm a').format(datetime)}')
+              ],
             )
           ]),
         ),

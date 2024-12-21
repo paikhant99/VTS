@@ -120,7 +120,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   controller: _retypePController,
                   decoration: const InputDecoration(
@@ -129,7 +129,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   controller: _addressController,
                   keyboardType: TextInputType.multiline,

@@ -127,14 +127,36 @@ void main() {
 
       final mockHttpResponse = http.Response(jsonEncode(mockResponse), 200);
 
-      when(mockApiService.getAvailableTimeSlots('23456')).thenAnswer(
+      when(mockApiService.getAllConsultationSlots('23456')).thenAnswer(
         (_) async => mockHttpResponse,
       );
 
-      final result = Success((await mockApiService.getAvailableTimeSlots("23456")).body);
+      final result = Success((await mockApiService.getAllConsultationSlots("23456")).body);
 
       expect(result.isSuccess(), isTrue);
       result.whenSuccess((success) => expect(success[0].length, mockResponse.length));
+    });
+
+    test('get_all_diseases success when authenticated', () async{
+      const mockResponse = [
+        {
+          'id': 1,
+          'disease_name': 'Diabetes',
+          'disease_severity': 'Level 1'
+        }
+      ];
+
+      final mockHttpResponse = http.Response(jsonEncode(mockResponse), 200);
+
+      when(mockApiService.getAllDiseases('23456')).thenAnswer(
+        (_) async => mockHttpResponse,
+      );
+
+      final result = Success((await mockApiService.getAllDiseases("23456")).body);
+
+      expect(result.isSuccess(), isTrue);
+      result.whenSuccess((success) => expect(success[0].length, mockResponse.length));
+      
     });
 
   });
