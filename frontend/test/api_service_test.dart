@@ -115,7 +115,7 @@ void main() {
       expect(result.error, mockResponse);
     });
 
-    test('get_available_time_slots success when authenticated', () async{
+    test('get_all_consultation_slots success when authenticated', () async{
 
       const mockResponse = [
         {
