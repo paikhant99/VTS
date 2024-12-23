@@ -6,6 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:frontend/remote/api_service.dart' as _i3;
+import 'package:frontend/remote/entities/requests/appointment_request.dart'
+    as _i7;
 import 'package:frontend/remote/entities/requests/login_request.dart' as _i5;
 import 'package:frontend/remote/entities/requests/register_request.dart' as _i6;
 import 'package:http/http.dart' as _i2;
@@ -70,6 +72,140 @@ class MockApiService extends _i1.Mock implements _i3.ApiService {
           Invocation.method(
             #register,
             [request],
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+
+  @override
+  _i4.Future<_i2.Response> getAllConsultationSlots(String? token) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllConsultationSlots,
+          [token],
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #getAllConsultationSlots,
+            [token],
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+
+  @override
+  _i4.Future<_i2.Response> getConsultationSlotsByDate(
+    String? token,
+    String? selectedDate,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getConsultationSlotsByDate,
+          [
+            token,
+            selectedDate,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #getConsultationSlotsByDate,
+            [
+              token,
+              selectedDate,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+
+  @override
+  _i4.Future<_i2.Response> getAllDiseases(String? token) => (super.noSuchMethod(
+        Invocation.method(
+          #getAllDiseases,
+          [token],
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #getAllDiseases,
+            [token],
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+
+  @override
+  _i4.Future<_i2.Response> getAllAppointments(
+    String? token,
+    String? patientId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllAppointments,
+          [
+            token,
+            patientId,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #getAllAppointments,
+            [
+              token,
+              patientId,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+
+  @override
+  _i4.Future<_i2.Response> createAppointment(
+    String? token,
+    _i7.AppointmentRequest? request,
+    String? patientId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createAppointment,
+          [
+            token,
+            request,
+            patientId,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #createAppointment,
+            [
+              token,
+              request,
+              patientId,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+
+  @override
+  _i4.Future<_i2.Response> getAllVaccinations(
+    String? token,
+    String? patientId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllVaccinations,
+          [
+            token,
+            patientId,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #getAllVaccinations,
+            [
+              token,
+              patientId,
+            ],
           ),
         )),
       ) as _i4.Future<_i2.Response>);

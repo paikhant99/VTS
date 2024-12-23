@@ -22,6 +22,13 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
 mixin _$LoginResponse {
   String get refresh => throw _privateConstructorUsedError;
   String get access => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int get userId => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
+  @JsonKey(name: 'date_of_birth')
+  String get dateOfBirth => throw _privateConstructorUsedError;
+  Gender get gender => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +43,15 @@ abstract class $LoginResponseCopyWith<$Res> {
           LoginResponse value, $Res Function(LoginResponse) then) =
       _$LoginResponseCopyWithImpl<$Res, LoginResponse>;
   @useResult
-  $Res call({String refresh, String access, String role});
+  $Res call(
+      {String refresh,
+      String access,
+      @JsonKey(name: 'user_id') int userId,
+      String username,
+      @JsonKey(name: 'date_of_birth') String dateOfBirth,
+      Gender gender,
+      String address,
+      String role});
 }
 
 /// @nodoc
@@ -54,6 +69,11 @@ class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
   $Res call({
     Object? refresh = null,
     Object? access = null,
+    Object? userId = null,
+    Object? username = null,
+    Object? dateOfBirth = null,
+    Object? gender = null,
+    Object? address = null,
     Object? role = null,
   }) {
     return _then(_value.copyWith(
@@ -64,6 +84,26 @@ class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
       access: null == access
           ? _value.access
           : access // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      dateOfBirth: null == dateOfBirth
+          ? _value.dateOfBirth
+          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+              as String,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as Gender,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String,
       role: null == role
           ? _value.role
@@ -81,7 +121,15 @@ abstract class _$$LoginResponseImplCopyWith<$Res>
       __$$LoginResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String refresh, String access, String role});
+  $Res call(
+      {String refresh,
+      String access,
+      @JsonKey(name: 'user_id') int userId,
+      String username,
+      @JsonKey(name: 'date_of_birth') String dateOfBirth,
+      Gender gender,
+      String address,
+      String role});
 }
 
 /// @nodoc
@@ -97,6 +145,11 @@ class __$$LoginResponseImplCopyWithImpl<$Res>
   $Res call({
     Object? refresh = null,
     Object? access = null,
+    Object? userId = null,
+    Object? username = null,
+    Object? dateOfBirth = null,
+    Object? gender = null,
+    Object? address = null,
     Object? role = null,
   }) {
     return _then(_$LoginResponseImpl(
@@ -107,6 +160,26 @@ class __$$LoginResponseImplCopyWithImpl<$Res>
       access: null == access
           ? _value.access
           : access // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      dateOfBirth: null == dateOfBirth
+          ? _value.dateOfBirth
+          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+              as String,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as Gender,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String,
       role: null == role
           ? _value.role
@@ -122,7 +195,14 @@ class _$LoginResponseImpl
     with DiagnosticableTreeMixin
     implements _LoginResponse {
   const _$LoginResponseImpl(
-      {required this.refresh, required this.access, required this.role});
+      {required this.refresh,
+      required this.access,
+      @JsonKey(name: 'user_id') required this.userId,
+      required this.username,
+      @JsonKey(name: 'date_of_birth') required this.dateOfBirth,
+      required this.gender,
+      required this.address,
+      required this.role});
 
   factory _$LoginResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoginResponseImplFromJson(json);
@@ -132,11 +212,23 @@ class _$LoginResponseImpl
   @override
   final String access;
   @override
+  @JsonKey(name: 'user_id')
+  final int userId;
+  @override
+  final String username;
+  @override
+  @JsonKey(name: 'date_of_birth')
+  final String dateOfBirth;
+  @override
+  final Gender gender;
+  @override
+  final String address;
+  @override
   final String role;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LoginResponse(refresh: $refresh, access: $access, role: $role)';
+    return 'LoginResponse(refresh: $refresh, access: $access, userId: $userId, username: $username, dateOfBirth: $dateOfBirth, gender: $gender, address: $address, role: $role)';
   }
 
   @override
@@ -146,6 +238,11 @@ class _$LoginResponseImpl
       ..add(DiagnosticsProperty('type', 'LoginResponse'))
       ..add(DiagnosticsProperty('refresh', refresh))
       ..add(DiagnosticsProperty('access', access))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('dateOfBirth', dateOfBirth))
+      ..add(DiagnosticsProperty('gender', gender))
+      ..add(DiagnosticsProperty('address', address))
       ..add(DiagnosticsProperty('role', role));
   }
 
@@ -156,12 +253,20 @@ class _$LoginResponseImpl
             other is _$LoginResponseImpl &&
             (identical(other.refresh, refresh) || other.refresh == refresh) &&
             (identical(other.access, access) || other.access == access) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.dateOfBirth, dateOfBirth) ||
+                other.dateOfBirth == dateOfBirth) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.role, role) || other.role == role));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, refresh, access, role);
+  int get hashCode => Object.hash(runtimeType, refresh, access, userId,
+      username, dateOfBirth, gender, address, role);
 
   @JsonKey(ignore: true)
   @override
@@ -181,6 +286,11 @@ abstract class _LoginResponse implements LoginResponse {
   const factory _LoginResponse(
       {required final String refresh,
       required final String access,
+      @JsonKey(name: 'user_id') required final int userId,
+      required final String username,
+      @JsonKey(name: 'date_of_birth') required final String dateOfBirth,
+      required final Gender gender,
+      required final String address,
       required final String role}) = _$LoginResponseImpl;
 
   factory _LoginResponse.fromJson(Map<String, dynamic> json) =
@@ -190,6 +300,18 @@ abstract class _LoginResponse implements LoginResponse {
   String get refresh;
   @override
   String get access;
+  @override
+  @JsonKey(name: 'user_id')
+  int get userId;
+  @override
+  String get username;
+  @override
+  @JsonKey(name: 'date_of_birth')
+  String get dateOfBirth;
+  @override
+  Gender get gender;
+  @override
+  String get address;
   @override
   String get role;
   @override
